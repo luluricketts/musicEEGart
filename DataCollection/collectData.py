@@ -3,7 +3,7 @@ import time
 import json
 
 Fs = 128 # sampling rate
-dt = 1/Fs 
+dt = 1./Fs 
 MAX_TIME = 120 # 2 min cap
 
 print('Connecting...')
@@ -34,7 +34,7 @@ meditation = []
 raw_eeg = []
 
 print('Beginning data collection in')
-for i in range(1,4):
+for i in range(3,0, -1):
     print('{}...'.format(i))
     time.sleep(1)
 print('Data collection beginning...')
@@ -43,7 +43,6 @@ print('Data collection beginning...')
 for i in range(Fs * MAX_TIME):
 
     while headset.poor_signal > 5:
-
         # shouldn't happen
         print('Poor connection or signal, try readjusting headset')
         time.sleep(1)
