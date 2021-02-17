@@ -55,8 +55,9 @@ for i,file in enumerate(files):
 
     rows.append(song_row)
             
+file_path = 'data/emotion_data/'
 file_name = 'user{}emotions.csv'.format(user)
-with open(file_name, 'w') as csvfile:
+with open(file_path + file_name, 'w') as csvfile:
     csvwriter = csv.writer(csvfile)
     csvwriter.writerow(fields)
     csvwriter.writerows(rows)

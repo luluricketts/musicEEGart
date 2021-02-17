@@ -26,7 +26,7 @@ eeg['genre'] = input('Genre: ')
 eeg['song'] = song_name
 eeg['user'] = user
 
-out_file_path = 'data/'
+out_file_path = 'data/eeg_data/'
 out_file_name = 'user{}song{}'.format(user, song_id)
 
 attention = []
