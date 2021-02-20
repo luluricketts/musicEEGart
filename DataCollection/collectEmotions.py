@@ -38,7 +38,8 @@ for i,file in enumerate(files):
 
             pygame.mixer.music.pause()
             print('\nChoose an emotion for the last 10 seconds:\n')
-            print('0-Happy\t1-Sad\t2-Relaxed\t3-Energized\n4-Anxious\t5-Disgust\t6-Anger')
+            #print('0-Happy\t1-Sad\t2-Relaxed\t3-Energized\n4-Anxious\t5-Disgust\t6-Anger')
+            print('2-Relaxed\t3-Energized')
 
             try: 
                 emotion = int(input('Your Emotion: '))
