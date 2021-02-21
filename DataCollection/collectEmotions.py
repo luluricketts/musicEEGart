@@ -21,7 +21,7 @@ for i,file in enumerate(files):
         if cont.lower() == 'no':
             break
 
-    pygame.mixer.music.load(file)
+    pygame.mixer.music.load('music_files/' + file)
     start = s = time.time()
     song_row = [user, i+1]
 
