@@ -22,12 +22,13 @@ eeg = dict()
 user = input('User ID: ')
 song_id = input('Song ID: ')
 song_name = input('Song Title: ')
+trial = input('Trial: ')
 eeg['genre'] = input('Genre: ')
 eeg['song'] = song_name
 eeg['user'] = user
 
 out_file_path = 'data/eeg_data/'
-out_file_name = 'user{}song{}'.format(user, song_id)
+out_file_name = 'user{}song{}trial{}'.format(user, song_id, trial)
 
 attention = []
 meditation = []
