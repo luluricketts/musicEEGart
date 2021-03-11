@@ -87,11 +87,18 @@ def model_pipeline(raw_eeg, attention, meditation):
 
     ##### feature extraction #####
     nper_chunk = fs * 10 # 10 second chunks
-    sample = np.array([[eeg], [attention], [meditation]]).reshape(3, 12, nper_chunk)
+    n_chunks = int(len(eeg) / nper_chunk)
+    # shorten data to be exactly n_chunks 10-second chunks, no extra data
+    if n_chunks != (len(eeg) / nper_chunk):
+        eeg = eeg[:nper_chunk * n_chunks]
+        attention = attention[:nper_chunk * n_chunks]
+        meditation = meditation[:nper_chunk * n_chunks]
+
+    sample = np.array([[eeg], [attention], [meditation]]).reshape(3, n_chunks, nper_chunk)
 
     # for each 10s chunk, get features
     model_input = []
-    for i in range(12):
+    for i in range(n_chunks):
         model_input.append(extract_features(sample[:,i,:]))
     model_input = np.array(model_input)
 

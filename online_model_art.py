@@ -9,7 +9,6 @@ from model_pipeline import model_pipeline
 
 Fs = 128 # sampling rate
 dt = 1./Fs 
-MAX_TIME = 120 # 2 min cap
 
 print('Connecting...')
 headset = mindwave.Headset('/dev/tty.MindWaveMobile-SerialPo')
@@ -21,7 +20,9 @@ while headset.poor_signal > 5:
     print('Poor connection or signal, try readjusting headset')
     time.sleep(1)
 
-data = np.zeros((3, Fs * MAX_TIME))
+raw_eeg = []
+attention = []
+meditation = []
 
 print('Beginning data collection in')
 for i in range(3,0, -1):
@@ -29,19 +30,26 @@ for i in range(3,0, -1):
     time.sleep(1)
 print('Data collection beginning...')
 
-# capping out songs at 2 mins
-for i in range(Fs * MAX_TIME):
+# record until user presses ctrl C
+while True:
 
-    while headset.poor_signal > 5:
-        # shouldn't happen
-        print('Poor connection or signal, try readjusting headset')
-        time.sleep(1)
+    try:
+        while headset.poor_signal > 5:
+            # shouldn't happen
+            print('Poor connection or signal, try readjusting headset')
+            time.sleep(1)
 
-    data[0,i] = headset.raw_value
-    data[1,i] = headset.attention
-    data[2,i] = headset.meditation
+        raw_eeg = headset.raw_value
+        raw_attention = headset.attention
+        raw_meditation = headset.meditation
 
-    time.sleep(dt)
+        time.sleep(dt)
+
+    # break out on ctrl C    
+    except KeyboardInterrupt:
+        print('Recording stopped, saving data...')
+
+data = np.array([eeg, attention, meditation]).reshape(3,-1)
 
 emotion_preds = model_pipeline(data[0], data[1], data[2])
 print(emotion_preds)
